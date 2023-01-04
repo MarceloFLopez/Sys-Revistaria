@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.springboot.treinamentojava.model.Papel;
@@ -118,6 +119,35 @@ public class UsuarioController {
 	    return "/auth/admin/admin-editar-papel-usuario";
 	}
 	
-	
+	@PostMapping("/editarPapel/{id}")
+	public String atribuirPapel(@PathVariable("id") long idUsuario, 
+								@RequestParam(value = "pps", required=false) int[] pps, 
+								Usuario usuario, 
+								RedirectAttributes attributes) {
+		if (pps == null) {
+			usuario.setId(idUsuario);
+			attributes.addFlashAttribute("mensagem", "Pelo menos um papel deve ser informado");
+			return "redirect:/usuario/editarPapel/"+idUsuario;
+		} else {
+			//Obtém a lista de papéis selecionada pelo usuário do banco
+			List<Papel> papeis = new ArrayList<Papel>();			 
+			for (int i = 0; i < pps.length; i++) {
+				long idPapel = pps[i];
+				Optional<Papel> papelOptional = papelRepository.findById(idPapel);
+				if (papelOptional.isPresent()) {
+					Papel papel = papelOptional.get();
+					papeis.add(papel);
+		        }
+			}
+			Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
+			if (usuarioOptional.isPresent()) {
+				Usuario usr = usuarioOptional.get();
+				usr.setPapeis(papeis); // relaciona papéis ao usuário
+				usuarioRepository.save(usr);
+	        }			
+		}		
+	    return "redirect:/usuario/admin/listar";
+	}
+
 
 }
