@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Nova Revista</title>
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css}">
+<script th:scr="@{/jquery-3.6.3-dist/jquery-3.6.3.min.js}"></script>
+<script th:scr="@{/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js}"></script>
+
+<style>
+.mensagem {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div th:insert="fragments/publica-nav :: nav"></div>
+	<div class="container  mt-3 fs-5">
+		<div class="row">
+			<div class="col">
+				<h2>Cadastro de revistas</h2>
+				<div class="alert alert-success alert-dismissible fade show"
+					th:if="${mensagem}">
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					<span th:text="${mensagem}"></span>
+				</div>
+				<form class="mt-4" action="#" th:action="@{/revista/salvar}"
+					th:object="${revista}" method="post">
+					
+					<!-- Atributos -->
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Titulo:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{titulo}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('titulo')}"
+								th:errors="*{titulo}"></span>
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Autor:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{autor}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('autor')}"
+								th:errors="*{autor}"></span>
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">EAN:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{ean}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('ean')}"
+								th:errors="*{ean}"></span>
+						</div>
+					</div>
+					
+					<!-- Button -->
+					<button type="submit" class="btn btn-primary">Atulalizar</button>
+					<a type="button" class="btn btn-default"  href="/revista/user/listar">Voltar</a>	
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<div th:insert="fragments/publica-nav :: foot"></div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Novo Usuário</title>
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css}">
+<script th:scr="@{/jquery-3.6.3-dist/jquery-3.6.3.min.js}"></script>
+<script th:scr="@{/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js}"></script>
+
+<style>
+.mensagem {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div th:insert="fragments/publica-nav :: nav"></div>
+	<div class="container  mt-3 fs-5">
+		<div class="row">
+			<div class="col">
+				<h2>Cadastro de usuários</h2>
+				<div class="alert alert-success alert-dismissible fade show"
+					th:if="${mensagem}">
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					<span th:text="${mensagem}"></span>
+				</div>
+				
+				<div class="alert alert-danger alert-dismissible fade show"
+					th:if="${error}">
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					<span th:text="${error}"></span>
+				</div>
+				
+				<!-- Formulário -->
+				<form class="mt-4" action="#" th:action="@{/usuario/salvar}"
+					th:object="${usuario}" method="post">
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Nome:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{nome}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
+								th:errors="*{nome}"></span>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">CPF:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{cpf}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+							
+							<span class="mensagem" th:if="${cpfExiste}" th:text="${cpfExiste}"></span>
+						</div>
+					</div>
+
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Nascimento:</label>
+						<div class="col-sm-2">
+							<input class="form-control" type="text"
+								th:field="*{dataNascimento}" placeholder="Ex: 01/01/2000">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem"
+								th:if="${#fields.hasErrors('dataNascimento')}"
+								th:errors="*{dataNascimento}"></span>
+						</div>
+					</div>
+
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Email:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{email}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+							
+							<span class="mensagem" th:if="${emailExiste}" th:text="${emailExiste}"></span>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Login:</label>
+						<div class="col-sm-2">
+							<input class="form-control" type="text" th:field="*{login}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span> 
+							
+							<span class="mensagem" th:if="${loginExiste}" th:text="${loginExiste}"></span>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">Senha:</label>
+						<div class="col-sm-4">
+							<input class="form-control" type="text" th:field="*{password}">
+						</div>
+						<div class="col-sm-5">
+							<span class="mensagem" th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}"></span>
+						</div>
+					</div>
+
+
+					<input class="btn btn-primary" type="submit">
+					<a type="button" class="btn btn-default" href="/usuario/admin/listar">Voltar</a>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<div th:insert="fragments/publica-nav :: foot"></div>
+</body>
+</html>
