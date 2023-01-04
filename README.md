@@ -1,4 +1,4 @@
-# Sys_Biblioteca
+# Sys_Revistaria
 
 
 - 🔭 Atualmente em busca de uma oportunidade
