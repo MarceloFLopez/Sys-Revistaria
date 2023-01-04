@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista de usuários</title>
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css}">
+<script th:scr="@{/jquery-3.6.3-dist/jquery-3.6.3.min.js}"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<script th:scr="@{/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js}"></script>
+
+<style>
+.container-fluid {
+	margin-top: 3rem !important;
+}
+</style>
+
+</head>
+<body>
+	<div th:insert="fragments/publica-nav :: nav"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h2>Atribuir papel</h2>
+				<form action="#"
+					th:action="@{/usuario/editarPapel/{id}(id=${usuario.id})}"
+					th:object="${usuario}" method="post">
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Nome:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{nome}"
+								disabled>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">CPF:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{cpf}"
+								disabled>
+						</div>
+					</div>
+
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Nascimento:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text"
+								th:field="*{dataNascimento}" disabled>
+						</div>
+					</div>
+
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Email:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{email}"
+								disabled>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Login:</label>
+						<div class="col-sm-5">
+							<input class="form-control" type="text" th:field="*{login}"
+								disabled>
+						</div>
+					</div>					
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Papéis:</label>
+						<div class="col-sm-2">
+							<th:block th:each="pp : ${listaPapeis}">								
+								<div th:if="${#lists.contains(usuario.papeis, pp)}" class="form-check">
+										<input class="form-check-input" type="checkbox" name="pps"
+										th:value="${pp.id}" checked/> 
+									<label class="form-check-label" th:text="${pp.papel}"></label>
+								</div>
+								
+								<div th:unless="${#lists.contains(usuario.papeis, pp)}" class="form-check">
+										<input class="form-check-input" type="checkbox" name="pps"
+										th:value="${pp.id}"/> 
+									<label class="form-check-label" th:text="${pp.papel}"></label>
+								</div>
+							</th:block>	
+						</div>						
+					</div>
+
+					<input class="btn btn-primary" type="submit" value="Alterar" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div th:insert="fragments/publica-nav :: foot"></div>
+</body>
+</html>
