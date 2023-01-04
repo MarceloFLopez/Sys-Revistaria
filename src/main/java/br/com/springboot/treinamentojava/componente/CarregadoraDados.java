@@ -15,7 +15,7 @@ public class CarregadoraDados implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		String[] papeis = { "ADMIN", "USER", "BIBLIOTECARIO" };
+		String[] papeis = { "ADMIN", "USER", "GERENTE" };
 
 		for (String papelString : papeis) {
 			Papel papel = papelReposityory.findByPapel(papelString);

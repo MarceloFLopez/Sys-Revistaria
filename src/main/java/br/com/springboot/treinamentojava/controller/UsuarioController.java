@@ -52,11 +52,11 @@ public class UsuarioController {
 		if (usrLogin != null) {
 			nodel.addAttribute("loginExiste", "Login já cadastrado");
 			return "/publica-criar-usuario";
-		}else if(usrCpf != null){
-			nodel.addAttribute("loginExiste", "Login já cadastrado");
+		}if(usrCpf != null){
+			nodel.addAttribute("cpfExiste", "CPF já cadastrado");
 			return "/publica-criar-usuario";
-		}else if(usrEmail != null){
-			nodel.addAttribute("loginExiste", "Login já cadastrado");
+		}if(usrEmail != null){
+			nodel.addAttribute("emailExiste", "Email já cadastrado");
 			return "/publica-criar-usuario";
 		}
 		
@@ -143,11 +143,13 @@ public class UsuarioController {
 			if (usuarioOptional.isPresent()) {
 				Usuario usr = usuarioOptional.get();
 				usr.setPapeis(papeis); // relaciona papéis ao usuário
+				usr.setAtivo(usuario.isAtivo());
 				usuarioRepository.save(usr);
 	        }			
 		}		
 	    return "redirect:/usuario/admin/listar";
 	}
+
 
 
 }

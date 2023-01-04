@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div th:insert="fragments/publica-nav :: nav"></div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 		
 		
@@ -26,8 +26,8 @@
 							<th>Titulo</th>
 							<th>Autor</th>
 							<th>EAN</th>
-							<th>Código de barras</th>
 							<th style="width: 6%">Update</th>
+							<th style="width: 6%">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,16 +40,18 @@
 							<td><span th:text="${revista.autor}"> Autor</span></td>
 							<td><span th:text="${revista.ean}"> Autor</span></td>
 							<!-- Button -->
-							<td><a class="btn btn-danger mb-0"
+							<td style="width: 10%">
+								<a  class="btn btn-primary  mb-0" th:href="@{/revista/editar/{id}(id=${revista.id})}">
+								 <i	class="bi bi-pencil-square"></i></a>
+							</td>	
+							<td>
+							<a class="btn btn-danger mb-0"
 								th:href="@{/revista/user/apagar/{id}(id=${revista.id})}"
 								th:data-confirm-delete="|Você gostaria de apagar ${revista.titulo}?|"
 								onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
 									<i class="bi bi-person-x-fill"></i></a>
 							</td>
-							<td style="width: 10%">
-								<a  class="btn btn-primary  mb-0" th:href="@{/revista/editar/{id}(id=${revista.id})}">
-								 <i	class="bi bi-pencil-square"></i></a>
-							</td>		
+								
 						</tr>
 					</tbody>
 				</table>
