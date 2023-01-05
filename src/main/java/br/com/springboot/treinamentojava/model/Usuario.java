@@ -133,4 +133,12 @@ public class Usuario implements Serializable {
 		this.papeis = papeis;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataNascimento=" + dataNascimento
+				+ ", email=" + email + ", password=" + password + ", login=" + login + ", ativo=" + ativo + ", papeis="
+				+ papeis + "]";
+	}
+	
+
 }

@@ -6,17 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-	
-	@RequestMapping("/") 
+
+	@RequestMapping("/")
 	public String index(Model model) {
 		model.addAttribute("msnBemVindo", "Bem-vindo à Sys-Revistaria");
 		return "publica-index";
 	}
-	
-	@RequestMapping("/exemplo") 
-	public String exemplo(Model model) {
-		model.addAttribute("msnBemVindo", "Bem-vindo à Sys-Revistaria");
-		return "exemplo";
+
+	@RequestMapping("/login")
+	public String login(Model model) {
+		return "login";
 	}
 
 }
