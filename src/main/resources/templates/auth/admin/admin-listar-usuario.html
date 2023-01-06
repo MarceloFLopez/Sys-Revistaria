@@ -12,10 +12,9 @@
 
 
 </head>
-<body 
->
+<body>
 	<div th:insert="fragments/publica-nav :: nav"></div>
-	<div class="container-fliud "style="margin: 1rem">
+	<div class="container">
 		<div class="row">
 			<div class="col mt-3">
 				<h2>Lista de Usuários</h2>
@@ -51,12 +50,14 @@
 							</span></td>
 							<td><span th:text="${usuario.email}"> E-mail </span></td>
 
-							<td><span class="fs-5" th:text="${usuario.ativo} ? 'ATIVO' : 'NÃO ATIVO'">
+							<td><span class="fs-5"
+								th:text="${usuario.ativo} ? 'ATIVO' : 'NÃO ATIVO'">
 									Ativo? </span></td>
 
 
-							<td><th:block th:each="pp : ${usuario.papeis}">
-									<span th:text="${pp.papel}">Permissão</span>
+							<td style="font-size: 15px"><th:block
+									th:each="pp : ${usuario.papeis}">
+									<span  th:text="${pp.papel}">Permissão</span>
 									<br />
 								</th:block></td>
 							<!-- Fim Conteudo da lista -->
@@ -84,6 +85,17 @@
 			</div>
 		</div>
 	</div>
-	<div th:insert="fragments/publica-nav :: foot"></div>
+	<div class="text-end fs-6">
+		<div class="container-fluid ">
+			<footer class="footer mt-auto py-3 bg-light">
+				<div class="container">
+					<span class="text-muted">SYS-Springboot Por: Marcelo F.
+						Lopez |Build: 2023 </span> <span class="text-muted">|<i class="bi bi-github"></i> <a
+						href="https://github.com/MarceloFLopez">GitHub</a>
+					</span>
+				</div>
+			</footer>
+		</div>
+	</div>
 </body>
 </html>
