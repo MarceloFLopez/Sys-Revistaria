@@ -103,19 +103,29 @@ public class UsuarioController {
 	    	usuario.setId(id);
 	        return "/auth/user/user-alterar-usuario";
 	    }
+		
+		// Busca o papel básico de usuário
+		Papel papel = papelRepository.findByPapel("USER");
+		List<Papel> pepeis = new ArrayList<Papel>();
+		pepeis.add(papel);
+		usuario.setPapeis(pepeis);// Associa o papel ao usuário
+		
 	    usuarioRepository.save(usuario);
 	    return "redirect:/usuario/admin/listar";
 	}
 
 	@GetMapping("/editarPapel/{id}")
 	public String selecionarPapel(@PathVariable("id") long id, Model model) {
+		
 		Optional<Usuario> usuarioVelho = usuarioRepository.findById(id);
+		
 		if (!usuarioVelho.isPresent()) {
             throw new IllegalArgumentException("Usuário inválido:" + id);
         } 
 		Usuario usuario = usuarioVelho.get();
 	    model.addAttribute("usuario", usuario);
 	    model.addAttribute("listaPapeis", papelRepository.findAll());
+	    
 	    return "/auth/admin/admin-editar-papel-usuario";
 	}
 	
@@ -127,7 +137,7 @@ public class UsuarioController {
 		if (pps == null) {
 			usuario.setId(idUsuario);
 			attributes.addFlashAttribute("mensagem", "Pelo menos um papel deve ser informado");
-			return "redirect:/usuario/editarPapel/"+idUsuario;
+			return "redirect:/usuario/editarPapel/"+ idUsuario;
 		} else {
 			//Obtém a lista de papéis selecionada pelo usuário do banco
 			List<Papel> papeis = new ArrayList<Papel>();			 
